@@ -440,27 +440,30 @@ function showAlert(message, clasName = "alert-error") {
 }
 
 function init() {
-  switch (global.CurrentPage) {
-    case "/flixx-app-theme/index.html":
-      showswiper();
-      displaypopularmovies();
-      break;
-    case "/flixx-app-theme/movie-details.html":
-      displaymoviedetails();
-      break;
+  switch (true) {
+  case global.CurrentPage.endsWith("/") || global.CurrentPage.endsWith("index.html"):
+    showswiper();
+    displaypopularmovies();
+    break;
 
-    case "/flixx-app-theme/tv-details.html":
-      console.log("shows");
-      displayshowdetails();
-      break;
-    case "/flixx-app-theme/shows.html":
-      displaypopularshows();
-      break;
-    case "/flixx-app-theme/search.html":
-      searchmovieTv();
-      console.log(global.search.totalPages);
-      break;
-  }
+  case global.CurrentPage.includes("movie-details.html"):
+    displaymoviedetails();
+    break;
+
+  case global.CurrentPage.includes("tv-details.html"):
+    displayshowdetails();
+    break;
+
+  case global.CurrentPage.includes("shows.html"):
+    displaypopularshows();
+    break;
+
+  case global.CurrentPage.includes("search.html"):
+    searchmovieTv();
+    break;
+}
+
   highlightactivelink();
 }
 document.addEventListener("DOMContentLoaded", init);
+
